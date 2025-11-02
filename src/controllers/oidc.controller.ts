@@ -44,8 +44,7 @@ export class OIDCController {
       // Decode base64 to string
       const keyStr = atob(oidcKeyBase64);
       const keyJson = JSON.parse(keyStr);
-
-      return c.json(keyJson);
+      return c.json({ keys: [keyJson] });
     } catch (error) {
       console.error("Error generating JWKS:", error);
       return c.json({ error: "Failed to generate JWKS" }, 500);

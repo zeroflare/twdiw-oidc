@@ -13,6 +13,7 @@ export class InitController {
           client_id TEXT NOT NULL UNIQUE,
           client_secret TEXT NOT NULL,
           redirect_uris TEXT NOT NULL,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
           created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`
       ).run();
