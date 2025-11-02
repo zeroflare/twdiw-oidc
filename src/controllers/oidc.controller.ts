@@ -8,6 +8,8 @@ export class OIDCController {
     const formData = await req.formData();
     console.log(Object.fromEntries(formData));
     const code = formData.get("code");
+    const authHeader = req.header("Authorization");
+    console.log(authHeader);
 
     const raw = await c.env.CODE_KV.get(code as string);
     if (!raw) {
