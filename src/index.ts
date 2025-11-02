@@ -45,6 +45,7 @@ app.get("/.well-known/openid-configuration", (c: Context) => {
     issuer: baseUrl,
     authorization_endpoint: `${baseUrl}/auth/login`,
     token_endpoint: `${baseUrl}/api/oidc/token`,
+    userinfo_endpoint: `${baseUrl}/api/oidc/userinfo`,
     jwks_uri: `${baseUrl}/api/oidc/jwks`,
     response_types_supported: ["code"],
     subject_types_supported: ["public"],
