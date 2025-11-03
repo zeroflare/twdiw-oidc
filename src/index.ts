@@ -32,11 +32,12 @@ app.use("*", async (c: Context, next) => {
 const api = new Hono();
 api.route("/auth", authRouter);
 api.route("/clients", clientsRouter);
-api.route("/oidc", oidcRouter);
 api.route("/init", initRouter);
 // Mount API under /api
 app.route("/api", api);
 
+
+app.route("/oidc", oidcRouter);
 app.get("/.well-known/openid-configuration", (c: Context) => {
   const url = new URL(c.req.url);
   const baseUrl = `${url.protocol}//${url.host}`;
@@ -44,9 +45,9 @@ app.get("/.well-known/openid-configuration", (c: Context) => {
   return c.json({
     issuer: baseUrl,
     authorization_endpoint: `${baseUrl}/auth/login`,
-    token_endpoint: `${baseUrl}/api/oidc/token`,
-    userinfo_endpoint: `${baseUrl}/api/oidc/userinfo`,
-    jwks_uri: `${baseUrl}/api/oidc/jwks`,
+    token_endpoint: `${baseUrl}/oidc/token`,
+    userinfo_endpoint: `${baseUrl}/oidc/userinfo`,
+    jwks_uri: `${baseUrl}/oidc/jwks`,
     response_types_supported: ["code"],
     subject_types_supported: ["public"],
     id_token_signing_alg_values_supported: ["RS256"],
