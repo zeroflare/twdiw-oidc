@@ -5,11 +5,44 @@ export class OIDCController {
   static async token(c: Context) {
     const { env, req } = c;
 
+    // 取得欄位 client_id, client_secret, code, redirect_uri
+    const authHeader = req.header("Authorization");
+    console.log(authHeader);
+    if (!authHeader || !authHeader.startsWith("Basic ")) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    const base64Credentials = authHeader.split(" ")[1];
+    const credentials = atob(base64Credentials).split(":");
+    if (credentials.length !== 2) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+    const [client_id, client_secret] = credentials;
+
     const formData = await req.formData();
     console.log(Object.fromEntries(formData));
     const code = formData.get("code");
-    const authHeader = req.header("Authorization");
-    console.log(authHeader);
+    const redirect_uri = formData.get("redirect_uri");
+
+    // 驗證欄位
+    try {
+      const client = await env.DB.prepare(
+        "SELECT * FROM clients WHERE client_id = ? AND client_secret = ?"
+      )
+        .bind(client_id, client_secret)
+        .first();
+
+      if (!client) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      if (!client.redirect_uris.split("\n").includes(redirect_uri)) {
+        return c.json({ error: "Invalid redirect_uri" }, 400);
+      }
+    } catch (error) {
+      console.error("Database error:", error);
+      return c.json({ error: "Internal server error" }, 500);
+    }
 
     const raw = await c.env.CODE_KV.get(code as string);
     if (!raw) {
