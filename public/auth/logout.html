@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>數位憑證皮夾 OIDC 登入</title>
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="/js/main.js"></script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body class="has-background-light">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('/api/auth/logout');
+                if (res.ok) {
+                    Swal.fire({
+                        title: '已登出',
+                        text: '您已成功登出。',
+                        icon: 'success',
+                        confirmButtonText: '返回首頁',
+                        confirmButtonColor: '#3273dc'
+                    }).then(() => {
+                        window.location.href = '/';
+                    });
+                } else {
+                    throw new Error('登出失敗');
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: '錯誤',
+                    text: error.message || '登出時發生問題',
+                    icon: 'error',
+                    confirmButtonText: '確定'
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

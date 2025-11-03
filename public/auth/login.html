@@ -11,6 +11,7 @@
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script defer src="/js/main.js"></script>
 
     <style>
         body {
@@ -30,58 +31,6 @@
 
 <body class="has-background-light">
 
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item has-text-white" href="/">
-                    <strong>數位憑證皮夾 單一登入</strong>
-                </a>
-
-                <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
-                    data-target="navbarMenu">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <a href="/dashboard" class="navbar-item has-text-white">管理後台</a>
-                    <a href="/auth/register" class="navbar-item has-text-white">註冊電子信箱卡</a>
-                    <a href="/cloudflareaccess" target="_blank" class="navbar-item has-text-white">
-                        測試登入 Cloudflare 零信任
-                    </a>
-                </div>
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <a href="https://github.com/zeroflare/twdiw-sso" target="_blank"
-                            class="button is-light is-small">
-                            <span class="icon">
-                                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
-                                    alt="GitHub" width="20" height="20">
-                            </span>
-                            <span>GitHub</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
-            $navbarBurgers.forEach(el => {
-                el.addEventListener('click', () => {
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
-                });
-            });
-        });
-    </script>
 
     <!-- Main content -->
     <section class="section is-flex-grow-1">

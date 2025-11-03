@@ -17,100 +17,12 @@
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
+    <script defer src="/js/main.js"></script>
 
 </head>
 
 <body class="has-background-light" style="min-height:100vh; display:flex; flex-direction:column;">
 
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item has-text-white" href="/">
-                    <strong>數位憑證皮夾 單一登入</strong>
-                </a>
-
-                <!-- 漢堡按鈕 -->
-                <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
-                    data-target="navbarMenu">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarMenu" class="navbar-menu">
-                <div class="navbar-start">
-                    <a href="/dashboard" class="navbar-item has-text-white is-active">
-                        管理後台
-                    </a>
-                    <a href="/auth/register" class="navbar-item has-text-white">
-                        註冊電子信箱卡
-                    </a>
-                    <a href="/cloudflareaccess" target="_blank" class="navbar-item has-text-white">
-                        測試登入 Cloudflare 零信任
-                    </a>
-                </div>
-
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <a href="https://github.com/zeroflare/twdiw-sso" target="_blank"
-                            class="button is-light is-small mr-2">
-                            <span class="icon">
-                                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
-                                    alt="GitHub" width="20" height="20">
-                            </span>
-                            <span>GitHub</span>
-                        </a>
-                        <!-- 🔹 改為 JS 登出 -->
-                        <button id="logoutBtn" class="button is-light is-small">登出</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Navbar toggle -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
-            $navbarBurgers.forEach(el => {
-                el.addEventListener('click', () => {
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
-                });
-            });
-
-            // 🔹 登出功能
-            const logoutBtn = document.getElementById('logoutBtn');
-            logoutBtn.addEventListener('click', async () => {
-                try {
-                    const res = await fetch('/api/auth/logout');
-                    if (res.ok) {
-                        Swal.fire({
-                            title: '已登出',
-                            text: '您已成功登出。',
-                            icon: 'success',
-                            confirmButtonText: '返回首頁',
-                            confirmButtonColor: '#3273dc'
-                        }).then(() => {
-                            window.location.href = '/';
-                        });
-                    } else {
-                        throw new Error('登出失敗');
-                    }
-                } catch (error) {
-                    Swal.fire({
-                        title: '錯誤',
-                        text: error.message || '登出時發生問題',
-                        icon: 'error',
-                        confirmButtonText: '確定'
-                    });
-                }
-            });
-        });
-    </script>
 
     <!-- Main Section -->
     <section class="section is-flex-grow-1">
@@ -121,7 +33,8 @@
                 <div class="content">
                     <p>於下方建立 OIDC Client，設定 Redirect URIs，並取得 Client ID 與 Client Secret。</p>
                     <ul>
-                        <li>Well-known URL：<span class="tag baseurl is-medium">/.well-known/openid-configuration</span></li>
+                        <li>Well-known URL：<span class="tag baseurl is-medium">/.well-known/openid-configuration</span>
+                        </li>
                         <li>Auth URL：<span class="tag baseurl is-medium">/auth/login</span></li>
                         <li>Token URL：<span class="tag baseurl is-medium">/api/oidc/token</span></li>
                         <li>Certificate URL：<span class="tag baseurl is-medium">/api/oidc/jwks</span></li>

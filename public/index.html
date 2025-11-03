@@ -7,69 +7,12 @@
 	<title>數位憑證皮夾 OIDC</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 	<script defer src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script defer src="/js/main.js"></script>
 </head>
 
 <body class="has-background-light" style="min-height:100vh; display:flex; flex-direction:column;">
 
-	<!-- Navbar -->
-	<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-		<div class="container">
-			<div class="navbar-brand">
-				<a class="navbar-item has-text-white" href="/">
-					<strong>數位憑證皮夾 單一登入</strong>
-				</a>
 
-				<!-- 漢堡按鈕 -->
-				<a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
-					data-target="navbarMenu">
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-				</a>
-			</div>
-
-			<div id="navbarMenu" class="navbar-menu">
-				<div class="navbar-start">
-					<a href="/dashboard" class="navbar-item has-text-white">
-						管理後台
-					</a>
-					<a href="/auth/register" class="navbar-item has-text-white">
-						註冊電子信箱卡
-					</a>
-					<a href="/cloudflareaccess" target="_blank" class="navbar-item has-text-white">
-						測試登入 Cloudflare 零信任
-					</a>
-				</div>
-
-				<div class="navbar-end">
-					<div class="navbar-item">
-						<a href="https://github.com/zeroflare/twdiw-sso" target="_blank"
-							class="button is-light is-small">
-							<span class="icon">
-								<img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
-									alt="GitHub" width="20" height="20">
-							</span>
-							<span>GitHub</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<!-- 啟用漢堡選單切換 -->
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
-			const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
-			$navbarBurgers.forEach(el => {
-				el.addEventListener('click', () => {
-					const target = el.dataset.target;
-					const $target = document.getElementById(target);
-					el.classList.toggle('is-active');
-					$target.classList.toggle('is-active');
-				});
-			});
-		});
-	</script>
 
 	<!-- Main content -->
 	<section class="section is-flex-grow-1">
