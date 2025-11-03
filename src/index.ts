@@ -11,7 +11,7 @@ import { getCookie, setCookie, deleteCookie } from "hono/cookie";
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 
 // Add this before your routes
-app.use("*", async (c: Context, next) => {
+app.use("/api/*", async (c: Context, next) => {
   try {
     const token = getCookie(c, "jwt");
     if (token) {
